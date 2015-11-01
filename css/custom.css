@@ -1,0 +1,9 @@
+html, body {
+	height: 100%;
+}
+th {
+	text-align: center;
+}
+td > span > a {
+	color: #ffffff;
+}
