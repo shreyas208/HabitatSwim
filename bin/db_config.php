@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 33247
- * Date: 15-02-27
- * Time: 10:40
- */
 
 $db_servername = "";
 $db_username = "";
