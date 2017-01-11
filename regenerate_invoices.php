@@ -29,10 +29,10 @@ if ($conn->connect_error) {
     $stmt1->store_result();
     $stmt1->fetch();
 
-    $stmt2 = $conn->prepare('SELECT sponsorship_id, swimmer_id, sponsor_name, sponsor_type, sponsor_amount, paid, amount_paid FROM sponsorships WHERE swimmer_id=?');
+    $stmt2 = $conn->prepare('SELECT sponsorship_id, sponsor_name, sponsor_type, sponsor_amount, paid, amount_paid FROM sponsorships WHERE swimmer_id=?');
     $stmt2->bind_param('s', $swimmer_id);
     $stmt2->execute();
-    $stmt2->bind_result($sponsorship_id, $swimmer_id, $sponsor_name, $sponsor_type, $sponsor_amount, $paid, $amount_paid);
+    $stmt2->bind_result($sponsorship_id, $sponsor_name, $sponsor_type, $sponsor_amount, $paid, $amount_paid);
     $stmt2->store_result();
 
     $swimmer_total_amount = 0;
@@ -83,5 +83,6 @@ if ($conn->connect_error) {
         $stmt3->execute();
     }
 
+    //echo $swimmer_id;
     header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id");
 }

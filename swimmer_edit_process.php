@@ -29,10 +29,10 @@ $distance_swum = filter_var($_POST['distance_swum'], FILTER_SANITIZE_NUMBER_INT)
 if ($conn->connect_error) {
     echo 'Error';
 } else {
-    $stmt1 = $conn->prepare('SELECT sponsorship_id, swimmer_id, sponsor_type, sponsor_amount FROM sponsorships WHERE swimmer_id=?');
+    $stmt1 = $conn->prepare('SELECT sponsorship_id, sponsor_type, sponsor_amount FROM sponsorships WHERE swimmer_id=?');
     $stmt1->bind_param('s', $swimmer_id);
     $stmt1->execute();
-    $stmt1->bind_result($sponsorship_id, $swimmer_id, $sponsor_type, $sponsor_amount);
+    $stmt1->bind_result($sponsorship_id, $sponsor_type, $sponsor_amount);
     $stmt1->store_result();
 
     $swimmer_total_amount = 0;

@@ -12,19 +12,19 @@ error_reporting(-1);
 
 require_once 'bin/db_config.php';
 
-$all = false;
+$all = true;
 
 if (isset($_GET['all'])) {
-    $all = true;
+    $all = $_GET['all'];
 }
 
 // Check connection
 if ($conn->connect_error) {
     echo 'Error';
 } else {
-    $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers WHERE distance_swum!=0";
-    if ($all) {
-        $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers";
+    $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers";
+    if (!$all) {
+        $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers WHERE distance_swum!=0";
     }
     $stmt1 = $conn->prepare($query);
     $stmt1->execute();
@@ -73,12 +73,12 @@ if ($conn->connect_error) {
             <h4>
                 <?php
                 if ($all) {
-                    echo '<a href="index.php"><button class="btn btn-info">Hide Blanks</button></a>';
+                    echo '<a href="index.php?all=0"><button class="btn btn-info">Hide Blanks</button></a>';
                 } else {
-                    echo '<a href="index.php?all=1"><button class="btn btn-info">Show All</button></a>';
+                    echo '<a href="index.php"><button class="btn btn-info">Show All</button></a>';
                 }
                 ?>
-
+                <a href="add_swimmer.php"><button class="btn btn-success">Add Swimmer</button></a>
             </h4>
         </div>
         <div class="col-md-12">

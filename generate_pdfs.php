@@ -38,8 +38,8 @@ class PDF extends FPDF
         // Arial italic 8
         $this->SetFont('Helvetica','I',12);
         // Page number
-        $this->Cell(0,10,'Jakarta International School Habitat for Humanity',0,0,'C');
+        $this->Cell(0,10,'Jakarta Intercultural School Habitat for Humanity',0,0,'C');
         $this->Ln(10);
-        $this->Cell(0,10,'tdonohue@jisedu.or.id / 33247@jisedu.or.id',0,0,'C');
+        $this->Cell(0,10,'26835@jisedu.or.id / 34994@jisedu.or.id',0,0,'C');
     }
 }

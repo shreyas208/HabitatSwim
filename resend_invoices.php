@@ -34,47 +34,50 @@ $stmt2->execute();
 $stmt2->bind_result($sponsor_name, $sponsor_total_amount, $invoice);
 $stmt2->store_result();
 
+$chk = $stmt2->num_rows == 0;
+
 if ($stmt2->num_rows == 0) {
     header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id&mail_success=0");
-}
-
-$distance_swum_string = number_format($distance_swum);
-
-$mail = new PHPMailer;
-
-// Specify mail server and sender information here
-$mail->isSMTP();
-$mail->Host = '';
-$mail->SMTPAuth = true;
-$mail->Username = '';
-$mail->Password = '';
-$mail->SMTPSecure = 'tls';
-$mail->Port = 587;
-
-$mail->From = '';
-$mail->FromName = 'JIS Habitat for Humanity';
-
-$mail->isHTML(false);
-
-$mail->Subject = 'JIS H4H Sponsored Swim - '.$swimmer_first_name.' '.$swimmer_last_name;
-$mail->Body = "Dear $swimmer_first_name $swimmer_last_name,
-\n\nThank you for participating in the JIS Habitat for Humanity Sponsored Swim! The latest invoices with details and amounts for each of your sponsors are attached.
-\n\nIf you need a stamped invoice or other assistance, please contact us at the email addresses below and we can arrange it.
-\n\nThank you,
-\nJIS Habitat for Humanity Leadership Team
-\n\nJIS H4H Admin";
-
-while($stmt2->fetch()) {
-    if ($sponsor_name == 'Aquadragons') {
-        $swimmer_email = '';
-    }
-    $mail->addAttachment("pdf/$invoice.pdf");
-}
-
-$mail->addAddress($swimmer_email); // Add a recipient
-
-if ($mail->send()) {
-    header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id&mail_success=1");
 } else {
-    header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id&mail_success=0");
+    $distance_swum_string = number_format($distance_swum);
+
+    $mail = new PHPMailer;
+
+    $mail->isSMTP();
+    $mail->Host = 'smtp.zoho.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'noreply@shreyas208.com';
+    $mail->Password = 'U9Ss4TQaZN8wzfQY';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+
+    $mail->From = 'noreply@shreyas208.com';
+    $mail->FromName = 'JIS Habitat for Humanity';
+
+    $mail->isHTML(false);
+
+    $mail->Subject = 'JIS H4H Sponsored Swim - ' . $swimmer_first_name . ' ' . $swimmer_last_name;
+    $mail->Body = "Dear $swimmer_first_name $swimmer_last_name,
+    \n\nThank you for participating in the JIS Habitat for Humanity Sponsored Swim! The latest invoices with details and amounts for each of your sponsors are attached. Please bring the money to the pool on March 12th, on the day of Dragon Dash 3.
+    \n\nIf you need a stamped invoice or other assistance, please contact us at the email addresses below and we can arrange it.
+    \n\nThank you,
+    \nJIS Habitat for Humanity Leadership Team
+    \n\n26835@jisedu.or.id / 34994@jisedu.or.id";
+
+    while ($stmt2->fetch()) {
+        if ($sponsor_name == 'Aquadragons') {
+            $swimmer_email = 'habitat@shreyas208.com';
+        }
+        $mail->addAttachment("pdf/$invoice.pdf");
+    }
+
+    $mail->addAddress($swimmer_email); // Add a recipient
+
+    if ($mail->send()) {
+        header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id&mail_success=1");
+    } else {
+        //echo $mail->ErrorInfo;
+        header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id&mail_success=0");
+    }
+
 }
