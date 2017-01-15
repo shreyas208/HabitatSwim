@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `swimmers` (
   `swimmer_first_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `jis` tinyint(1) NOT NULL DEFAULT '1',
   `swimmer_email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `beneficiary` tinyint(2) NOT NULL DEFAULT '0',
   `distance_swum` smallint(5) unsigned NOT NULL DEFAULT '0',
   `swimmer_total_amount` int(11) NOT NULL,
   `email_sent` tinyint(1) NOT NULL DEFAULT '0',
