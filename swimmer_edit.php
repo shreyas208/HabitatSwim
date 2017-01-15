@@ -22,10 +22,10 @@ $swimmer_id = $_GET['swimmer_id'];
 if ($conn->connect_error) {
     echo 'Error';
 } else {
-    $stmt1 = $conn->prepare("SELECT swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers WHERE swimmer_id=?");
+    $stmt1 = $conn->prepare("SELECT swimmer_last_name, swimmer_first_name, jis, swimmer_email, beneficiary, distance_swum, swimmer_total_amount FROM swimmers WHERE swimmer_id=?");
     $stmt1->bind_param('s', $swimmer_id);
     $stmt1->execute();
-    $stmt1->bind_result($swimmer_last_name, $swimmer_first_name, $jis, $swimmer_email, $distance_swum, $swimmer_total_amount);
+    $stmt1->bind_result($swimmer_last_name, $swimmer_first_name, $jis, $swimmer_email, $beneficiary, $distance_swum, $swimmer_total_amount);
     $stmt1->store_result();
     $stmt1->fetch();
 }
@@ -45,7 +45,7 @@ if ($conn->connect_error) {
 
     <link rel="icon" href="/img/icon-64.png" sizes="64x64" type="image/png">
 
-    <title>Edit Swimmer: <?php echo $swimmer_first_name.' '.$swimmer_last_name?> | JIS H4H Sponsored Swim</title>
+    <title>Edit Swimmer: <?php echo $swimmer_first_name.' '.$swimmer_last_name?> | Aquadragons Sponsored Swim</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -87,11 +87,31 @@ if ($conn->connect_error) {
                     ?>
                     <form action="swimmer_edit_process.php" method="POST">
                         <div class="form-group">
-                            <label for="inputEmail">Email Address</label>
-                            <input type="email" class="form-control" id="inputEmail" name="swimmer_email" value="<?php echo $swimmer_email ?>" required>
+                            <label for="inputSwimmerEmail">Swimmer Email Address</label>
+                            <input type="email" class="form-control" id="inputSwimmerEmail" name="swimmer_email" value="<?php echo $swimmer_email ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="inputDistanceSwum">Distance Swum</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="beneficiary" id="both" value="0" <?php if ($beneficiary == 0) {echo "checked";} ?>>
+                                    Both (50/50 Split)
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="beneficiary" id="h4h" value="1" <?php if ($beneficiary == 1) {echo "checked";} ?>>
+                                    Habitat for Humanity
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="beneficiary" id="jfti" value="2" <?php if ($beneficiary == 2) {echo "checked";} ?>>
+                                    #JusticeForTheInnocent
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDistanceSwum">Distance Swum (m)</label>
                             <input type="number" class="form-control" id="inputDistanceSwum" name="distance_swum" value="<?php echo $distance_swum ?>" required>
                         </div>
                         <input type="hidden" value="<?php echo $swimmer_id ?>" name="swimmer_id">

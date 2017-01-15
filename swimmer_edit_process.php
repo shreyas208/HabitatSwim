@@ -16,10 +16,17 @@ if (!isset($_POST['swimmer_id'])) {
     header('Location: /sponsoredswim/index.php');
 }
 $swimmer_id = $_POST['swimmer_id'];
+
 if (!isset($_POST['swimmer_email'])) {
     header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id");
 }
 $swimmer_email = filter_var($_POST['swimmer_email'], FILTER_SANITIZE_EMAIL);
+
+if (!isset($_POST['beneficiary'])) {
+    header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id");
+}
+$beneficiary = filter_var($_POST['beneficiary'], FILTER_SANITIZE_NUMBER_INT);
+
 if (!isset($_POST['distance_swum'])) {
     header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id");
 }
@@ -56,8 +63,8 @@ if ($conn->connect_error) {
         $stmt2->execute();
     }
 
-    $stmt3 = $conn->prepare("UPDATE swimmers SET swimmer_email=?, distance_swum=?, swimmer_total_amount=? WHERE swimmer_id=?");
-    $stmt3->bind_param('siis', $swimmer_email, $distance_swum, $swimmer_total_amount, $swimmer_id);
+    $stmt3 = $conn->prepare("UPDATE swimmers SET swimmer_email=?, beneficiary=?, distance_swum=?, swimmer_total_amount=? WHERE swimmer_id=?");
+    $stmt3->bind_param('siiis', $swimmer_email, $beneficiary, $distance_swum, $swimmer_total_amount, $swimmer_id);
     $stmt3->execute();
 
     header("Location: /sponsoredswim/swimmer.php?swimmer_id=$swimmer_id");
