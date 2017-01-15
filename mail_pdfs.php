@@ -1,5 +1,8 @@
 <?php
 /**
+ *
+ * ### DEPRECATED - SEE resend_invoices.php ###
+ *
  * Created by PhpStorm.
  * User: 33247
  * Date: 15-02-22
@@ -56,15 +59,12 @@ $mail->FromName = 'JIS Habitat for Humanity';
 
 $mail->isHTML(false);
 
-$mail->Subject = 'JIS H4H Sponsored Swim - '.$swimmer_first_name.' '.$swimmer_last_name;
+$mail->Subject = 'Aquadragons Sponsored Swim - '.$swimmer_first_name.' '.$swimmer_last_name;
 $mail->Body = "Dear $swimmer_first_name $swimmer_last_name,
-\n\nThank you for participating in the JIS Habitat for Humanity Sponsored Swim! Your final distance was $distance_swum_string meters. A separate document with details and amounts for each of your sponsors is attached.
-\n\nThe easiest payment option for us is if you could collect money from your sponsors and hand it in to us at Dragon Dash on Saturday, 28 February 2015. Another option is to pay at the Business Office (JIS H-Module 3rd floor) to the Habitat account: B035267, JIS Peduli Core Project H4H.
+\n\nThank you for participating in the Aquadragons Habitat for Humanity & #JusticeForTheInnocent Sponsored Swim! The latest invoices with details and amounts for each of your sponsors are attached.
 \n\nIf you need a stamped invoice or other assistance, please contact us at the email addresses below and we can arrange it.
-\n\nIf there are any sponsors that you are unable to collect from, please bring the attached document in on 28 Feb.
 \n\nThank you,
-\nJIS Habitat for Humanity Leadership Team
-\n\nJIS H4H Admin";
+\nJIS Habitat for Humanity & #JusticeForTheInnocent";
 
 while($stmt2->fetch()) {
     if ($sponsor_name == 'Aquadragons') {
