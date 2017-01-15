@@ -22,10 +22,10 @@ $swimmer_id = $_GET['swimmer_id'];
 if ($conn->connect_error) {
     echo 'Error';
 } else {
-    $stmt1 = $conn->prepare("SELECT swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers WHERE swimmer_id=?");
+    $stmt1 = $conn->prepare("SELECT swimmer_last_name, swimmer_first_name, jis, swimmer_email, beneficiary, distance_swum, swimmer_total_amount FROM swimmers WHERE swimmer_id=?");
     $stmt1->bind_param('s', $swimmer_id);
     $stmt1->execute();
-    $stmt1->bind_result($swimmer_last_name, $swimmer_first_name, $jis, $swimmer_email, $distance_swum, $swimmer_total_amount);
+    $stmt1->bind_result($swimmer_last_name, $swimmer_first_name, $jis, $swimmer_email, $beneficiary, $distance_swum, $swimmer_total_amount);
     $stmt1->store_result();
     $stmt1->fetch();
 
@@ -49,7 +49,7 @@ if ($conn->connect_error) {
 
     <link rel="icon" href="/img/icon-64.png" sizes="64x64" type="image/png">
 
-    <title><?php echo "$swimmer_first_name $swimmer_last_name" ?> | JIS H4H Sponsored Swim</title>
+    <title><?php echo "$swimmer_first_name $swimmer_last_name" ?> | Aquadragons Sponsored Swim</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -89,6 +89,15 @@ if ($conn->connect_error) {
                     }
                     echo '</h4>';
                     echo '<p>Email Address: <strong>'.$swimmer_email.'</strong></p>';
+                    echo '<p>Beneficiary: <strong>'.$swimmer_email;
+                    if ($beneficiary == 0) {
+                        echo 'Both';
+                    } else if ($beneficiary == 1) {
+                        echo 'Habitat for Humanity';
+                    } else if ($beneficiary == 2) {
+                        echo '#JusticeForTheInnocent';
+                    }
+                    echo '</strong></p>';
                     echo '<p>Distance Swum: <strong>'.number_format($distance_swum).'</strong></p>';
                     echo '<p>Total Amount: <strong>'.number_format($swimmer_total_amount).'</strong></p>';
                     echo '<p><a href="swimmer_edit.php?swimmer_id='.$swimmer_id.'"><span class="label btn-danger">EDIT SWIMMER DETAILS</span></a></p>';
