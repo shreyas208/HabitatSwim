@@ -22,9 +22,9 @@ if (isset($_GET['all'])) {
 if ($conn->connect_error) {
     echo 'Error';
 } else {
-    $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers";
+    $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, beneficiary, distance_swum, swimmer_total_amount FROM swimmers";
     if (!$all) {
-        $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum, swimmer_total_amount FROM swimmers WHERE distance_swum!=0";
+        $query = "SELECT swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, beneficiary, distance_swum, swimmer_total_amount FROM swimmers WHERE distance_swum!=0";
     }
     $stmt1 = $conn->prepare($query);
     $stmt1->execute();
@@ -45,7 +45,7 @@ if ($conn->connect_error) {
 
     <link rel="icon" href="/img/icon-64.png" sizes="64x64" type="image/png">
 
-    <title>Swimmers | JIS H4H Sponsored Swim</title>
+    <title>Swimmers | Aquadragons Sponsored Swim</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -89,6 +89,7 @@ if ($conn->connect_error) {
                     <th>Last Name</th>
                     <th>JIS</th>
                     <th>Email Address</th>
+                    <th>Beneficiary</th>
                     <th>Distance</th>
                     <th>Total Amount</th>
                     <th>Open</th>
@@ -103,7 +104,15 @@ if ($conn->connect_error) {
                     } else {
                         echo 'No';
                     }
-                    echo '</td><td class="text-center">'.$row['swimmer_email'].'</td><td class="text-center">'.number_format($row['distance_swum']).'</td><td class="text-center">'.number_format($row['swimmer_total_amount']).'</td>
+                    echo '</td><td class="text-center">'.$row['swimmer_email'].'</td><td class="text-center">';
+                    if ($row['beneficiary'] == 0) {
+                        echo 'Both';
+                    } else if ($row['beneficiary'] == 1) {
+                        echo 'H4H';
+                    } else if ($row['beneficiary'] == 2) {
+                        echo '#JFTI';
+                    }
+                    echo '</td><td class="text-center">'.number_format($row['distance_swum']).'</td><td class="text-center">'.number_format($row['swimmer_total_amount']).'</td>
                     <td class="text-center"><a href="swimmer.php?swimmer_id='.$row['swimmer_id'].'"><span class="label label-info"><i class="fa fa-chevron-right"></i></span></a></td></tr>';
                 }
                 ?>
