@@ -32,6 +32,11 @@ if (!isset($_POST['swimmer_email'])) {
 }
 $swimmer_email = filter_var($_POST['swimmer_email'], FILTER_SANITIZE_EMAIL);
 
+if (!isset($_POST['beneficiary'])) {
+    header('Location: /sponsoredswim/index.php');
+}
+$beneficiary = filter_var($_POST['beneficiary'], FILTER_SANITIZE_NUMBER_INT);
+
 $distance_swum = 0;
 if (isset($_POST['distance_swum'])) {
     $distance_swum = filter_var($_POST['distance_swum'], FILTER_SANITIZE_NUMBER_INT);
@@ -42,8 +47,8 @@ if ($conn->connect_error) {
     echo 'Error';
 } else {
     $swimmer_id = uniqid("$swimmer_last_name");
-    $stmt1 = $conn->prepare('INSERT INTO swimmers (swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, distance_swum) VALUES (?, ?, ?, ?, ?, ?)');
-    $stmt1->bind_param('sssisi', $swimmer_id, $swimmer_last_name, $swimmer_first_name, $jis, $swimmer_email, $distance_swum);
+    $stmt1 = $conn->prepare('INSERT INTO swimmers (swimmer_id, swimmer_last_name, swimmer_first_name, jis, swimmer_email, beneficiary, distance_swum) VALUES (?, ?, ?, ?, ?, ?, ?)');
+    $stmt1->bind_param('sssisii', $swimmer_id, $swimmer_last_name, $swimmer_first_name, $jis, $swimmer_email, $beneficiary, $distance_swum);
     $stmt1->execute();
     if ($conn->errno != 0) {
         die($conn->error);

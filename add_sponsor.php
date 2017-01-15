@@ -45,7 +45,7 @@ if ($conn->connect_error) {
 
     <link rel="icon" href="/img/icon-64.png" sizes="64x64" type="image/png">
 
-    <title>Add Sponsor for <?php echo $swimmer_first_name.' '.$swimmer_last_name?> | JIS H4H Sponsored Swim</title>
+    <title>Add Sponsor for <?php echo $swimmer_first_name.' '.$swimmer_last_name?> | Aquadragons Sponsored Swim</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

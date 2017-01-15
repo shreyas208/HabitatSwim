@@ -39,7 +39,7 @@ require_once 'bin/db_config.php';
 
     <link rel="icon" href="/img/icon-64.png" sizes="64x64" type="image/png">
 
-    <title>Add Swimmer | JIS H4H Sponsored Swim</title>
+    <title>Add Swimmer | Aquadragons Sponsored Swim</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -94,6 +94,26 @@ require_once 'bin/db_config.php';
                         <div class="form-group">
                             <label for="inputSwimmerEmail">Swimmer Email Address</label>
                             <input type="email" class="form-control" id="inputSwimmerEmail" name="swimmer_email" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="beneficiary" id="both" value="0" checked>
+                                    Both (50/50 Split)
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="beneficiary" id="h4h" value="1">
+                                    Habitat for Humanity
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="beneficiary" id="jfti" value="2">
+                                    #JusticeForTheInnocent
+                                </label>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="inputDistanceSwum">Distance Swum (m) <i>optional</i></label>

@@ -47,7 +47,7 @@ if ($conn->connect_error) {
 
     <link rel="icon" href="/img/icon-64.png" sizes="64x64" type="image/png">
 
-    <title>Enter Payment | JIS H4H Sponsored Swim</title>
+    <title>Enter Payment | Aquadragons Sponsored Swim</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
