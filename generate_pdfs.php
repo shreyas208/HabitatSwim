@@ -24,7 +24,7 @@ class PDF extends FPDF
         // Move to the right
         $this->Cell(100);
         // Title
-        $this->Cell(30,15,"Jakarta Intercultural School Habitat for Humanity",0,0,'C');
+        $this->Cell(30,15,"JIS Habitat for Humanity & #JusticeForTheInnocent",0,0,'C');
         $this->Cell(15,35,"Aquadragons Sponsored Swim",0,0,'C');
         // Line break
         $this->Ln(30);
@@ -38,8 +38,8 @@ class PDF extends FPDF
         // Arial italic 8
         $this->SetFont('Helvetica','I',12);
         // Page number
-        $this->Cell(0,10,'Jakarta Intercultural School Habitat for Humanity',0,0,'C');
+        $this->Cell(0,10,'Jakarta Intercultural School Habitat for Humanity & #JusticeForTheInnocent',0,0,'C');
         $this->Ln(10);
-        $this->Cell(0,10,'26835@jisedu.or.id / 34994@jisedu.or.id',0,0,'C');
+        $this->Cell(0,10,'41792@jisedu.or.id / 42157@jisedu.or.id / crose@jisedu.or.id',0,0,'C');
     }
 }

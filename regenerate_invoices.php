@@ -22,10 +22,10 @@ $swimmer_id = $_GET['swimmer_id'];
 if ($conn->connect_error) {
     echo 'Error';
 } else {
-    $stmt1 = $conn->prepare("SELECT swimmer_last_name, swimmer_first_name, distance_swum FROM swimmers WHERE swimmer_id=?");
+    $stmt1 = $conn->prepare("SELECT swimmer_last_name, swimmer_first_name, beneficiary, distance_swum FROM swimmers WHERE swimmer_id=?");
     $stmt1->bind_param('s',$swimmer_id);
     $stmt1->execute();
-    $stmt1->bind_result($swimmer_last_name, $swimmer_first_name, $distance_swum);
+    $stmt1->bind_result($swimmer_last_name, $swimmer_first_name, $beneficiary, $distance_swum);
     $stmt1->store_result();
     $stmt1->fetch();
 
@@ -54,6 +54,14 @@ if ($conn->connect_error) {
 
         $sponsor_amount_string = number_format($sponsor_amount);
         $sponsor_total_amount_string = number_format($sponsor_total_amount);
+        $beneficiary_string = "";
+        if ($beneficiary == 0) {
+            $beneficiary_string = ' for Habitat for Humanity and #JusticeForTheInnocent';
+        } else if ($beneficiary == 1) {
+            $beneficiary_string = ' for Habitat for Humanity';
+        } else if ($beneficiary == 2) {
+            $beneficiary_string = ' for #JusticeForTheInnocent';
+        }
         $distance_swum_string = number_format($distance_swum);
         $amount_paid_string = number_format($amount_paid);
 
@@ -65,14 +73,14 @@ if ($conn->connect_error) {
         $pdf->SetFont('Helvetica','',12);
         $pdf->Ln(10);
         $pdf->Cell(0,10,"Dear $sponsor_name,",0,1);
-        $pdf->Cell(0,10,'Thank you for sponsoring a swimmer at the JIS Habitat for Humanity Sponsored Swim!',0,1);
+        $pdf->Cell(0,10,'Thank you for sponsoring a swimmer at the JIS Habitat for Humanity & #JusticeForTheInnocent Sponsored Swim!',0,1);
         $pdf->Cell(0,10,'The details of your sponsorship are below:',0,1);
         $pdf->Cell(0,10,"Swimmer Name: $swimmer_first_name $swimmer_last_name",0,1);
         $pdf->Cell(0,10,"Sponsorship Type: $sponsor_type_text",0,1);
         $pdf->Cell(0,10,"Sponsorship Amount: IDR $sponsor_amount_string",0,1);
         $pdf->Cell(0,10,"Distance Swum: $distance_swum_string meters",0,1);
         $pdf->SetFont('Helvetica','B',12);
-        $pdf->Cell(0,10,"Total Amount: IDR $sponsor_total_amount_string",0,1);
+        $pdf->Cell(0,10,"Total Amount: IDR $sponsor_total_amount_string"."$beneficiary_string",0,1);
         if ($paid == 1) {
             $pdf->Cell(0,10,"Status: PAID (Rp. $amount_paid_string)",0,1);
         }
