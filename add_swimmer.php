@@ -96,6 +96,7 @@ require_once 'bin/db_config.php';
                             <input type="email" class="form-control" id="inputSwimmerEmail" name="swimmer_email" required>
                         </div>
                         <div class="form-group">
+                            <label>Beneficiary</label>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="beneficiary" id="both" value="0" checked>

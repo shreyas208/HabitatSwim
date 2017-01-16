@@ -91,6 +91,7 @@ if ($conn->connect_error) {
                             <input type="email" class="form-control" id="inputSwimmerEmail" name="swimmer_email" value="<?php echo $swimmer_email ?>" required>
                         </div>
                         <div class="form-group">
+                            <label>Beneficiary</label>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="beneficiary" id="both" value="0" <?php if ($beneficiary == 0) {echo "checked";} ?>>
